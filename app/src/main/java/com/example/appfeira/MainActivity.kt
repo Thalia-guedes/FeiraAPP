@@ -7,17 +7,21 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.appfeira.databinding.ActivityMainBinding
+import com.example.appfeira.listitems.Products
+import com.example.appfeira.model.Product
+import com.example.feiraapp.adapter.ProductAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectIndexed
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    // private lateinit var productAdapter: ProductAdapter
-    //private val products = Products()
-    //private val productList: MutableList<Product> = mutableListOf()
+    private lateinit var productAdapter: ProductAdapter
+    private val products = Products()
+    private val productList: MutableList<Product> = mutableListOf()
     var clicked = false
 
     @SuppressLint("ResourceAsColor", "SetTextI18n")
@@ -25,26 +29,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         functionsView()
 
+        window.statusBarColor = Color.parseColor("#E0E0E0")
     }
-
     @SuppressLint("ResourceAsColor")
     fun functionsView() {
-//
-//        CoroutineScope(Dispatchers.IO).launch {
-//            products.getProducts().collectIndexed { index, value ->
-//                for (p in value) {
-//                    productList.add(p)
-//                }
-//            }
-//        }
 
-        //val recyclerViewProducts = binding.recyclerViewProducts
-        //recyclerViewProducts.layoutManager = GridLayoutManager(this, 2)
-        // recyclerViewProducts.setHasFixedSize(true)
-        // productAdapter = ProductAdapter(this, productList)
-        // recyclerViewProducts.adapter = productAdapter
+        CoroutineScope(Dispatchers.IO).launch {
+            products.getProducts().collectIndexed { index, value ->
+                for (p in value) {
+                    productList.add(p)
+                }
+            }
+        }
+
+        val recyclerViewProducts = binding.recyclerViewsProducts
+        recyclerViewProducts.layoutManager = GridLayoutManager(this, 2)
+         recyclerViewProducts.setHasFixedSize(true)
+         productAdapter = ProductAdapter(this, productList)
+         recyclerViewProducts.adapter = productAdapter
 
 
         binding.btnAll.setOnClickListener {
@@ -58,8 +63,8 @@ class MainActivity : AppCompatActivity() {
                 binding.btnVerduras.setTextColor(R.color.dark_gray)
                 binding.btnFolhas.setBackgroundResource(R.drawable.bg_button_disabled)
                 binding.btnFolhas.setTextColor(R.color.dark_gray)
-                // binding.recyclerViewProducts.visibility = View.INVISIBLE
-                //  binding.textListTitle.text = "All"
+                binding.recyclerViewsProducts.visibility = View.INVISIBLE
+                binding.txtListTitle.text = "All"
             }
         }
 
@@ -74,8 +79,8 @@ class MainActivity : AppCompatActivity() {
                 binding.btnVerduras.setTextColor(R.color.dark_gray)
                 binding.btnFolhas.setBackgroundResource(R.drawable.bg_button_disabled)
                 binding.btnFolhas.setTextColor(R.color.dark_gray)
-                //binding.recyclerViewProducts.visibility = View.INVISIBLE
-                //binding.textListTitle.text = "Frutas"
+                binding.recyclerViewsProducts.visibility = View.INVISIBLE
+                binding.txtListTitle.text = "Frutas"
             }
         }
 
@@ -90,8 +95,8 @@ class MainActivity : AppCompatActivity() {
                 binding.btnAll.setTextColor(R.color.dark_gray)
                 binding.btnFolhas.setBackgroundResource(R.drawable.bg_button_disabled)
                 binding.btnFolhas.setTextColor(R.color.dark_gray)
-                // binding.recyclerViewProducts.visibility = View.VISIBLE
-                // binding.textListTitle.text = "Pizza"
+                 binding.recyclerViewsProducts.visibility = View.VISIBLE
+                 binding.txtListTitle.text = "Pizza"
 
             }
         }
@@ -107,8 +112,8 @@ class MainActivity : AppCompatActivity() {
                 binding.btnFrutas.setTextColor(R.color.dark_gray)
                 binding.btnAll.setBackgroundResource(R.drawable.bg_button_disabled)
                 binding.btnAll.setTextColor(R.color.dark_gray)
-                // binding.recyclerViewProducts.visibility = View.INVISIBLE
-                // binding.textListTitle.text = "Kebab"
+                 binding.recyclerViewsProducts.visibility = View.INVISIBLE
+                 binding.txtListTitle.text = "Kebab"
 
             }
         }
