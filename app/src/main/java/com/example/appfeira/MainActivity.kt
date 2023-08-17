@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    private lateinit var payment: Payment
     private lateinit var productAdapter: ProductAdapter
     private val products = Products()
     private val productList: MutableList<Product> = mutableListOf()
@@ -31,9 +32,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         functionsView()
-
         window.statusBarColor = Color.parseColor("#E0E0E0")
     }
+
     @SuppressLint("ResourceAsColor")
     fun functionsView() {
 
@@ -45,11 +46,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
         val recyclerViewProducts = binding.recyclerViewsProducts
         recyclerViewProducts.layoutManager = GridLayoutManager(this, 2)
-         recyclerViewProducts.setHasFixedSize(true)
-         productAdapter = ProductAdapter(this, productList)
-         recyclerViewProducts.adapter = productAdapter
+        recyclerViewProducts.setHasFixedSize(true)
+        productAdapter = ProductAdapter(this, productList)
+        recyclerViewProducts.adapter = productAdapter
 
 
         binding.btnAll.setOnClickListener {
@@ -95,8 +97,8 @@ class MainActivity : AppCompatActivity() {
                 binding.btnAll.setTextColor(R.color.dark_gray)
                 binding.btnFolhas.setBackgroundResource(R.drawable.bg_button_disabled)
                 binding.btnFolhas.setTextColor(R.color.dark_gray)
-                 binding.recyclerViewsProducts.visibility = View.VISIBLE
-                 binding.txtListTitle.text = "Pizza"
+                binding.recyclerViewsProducts.visibility = View.VISIBLE
+                binding.txtListTitle.text = "Verduras"
 
             }
         }
@@ -112,8 +114,8 @@ class MainActivity : AppCompatActivity() {
                 binding.btnFrutas.setTextColor(R.color.dark_gray)
                 binding.btnAll.setBackgroundResource(R.drawable.bg_button_disabled)
                 binding.btnAll.setTextColor(R.color.dark_gray)
-                 binding.recyclerViewsProducts.visibility = View.INVISIBLE
-                 binding.txtListTitle.text = "Kebab"
+                binding.recyclerViewsProducts.visibility = View.INVISIBLE
+                binding.txtListTitle.text = "Folhas"
 
             }
         }

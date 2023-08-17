@@ -32,11 +32,11 @@ class ProductDetails : AppCompatActivity() {
 
         binding.btIncrease.setOnClickListener{
             if (amount == 1){
-                binding.txAmount.text = "2"
+                binding.txtAmount.text = "2"
                 newPrice += price
                 amount = 2
             }else if (amount == 2){
-                binding.txAmount.text = "3"
+                binding.txtAmount.text = "3"
                 newPrice += price
                 amount = 3
             }
@@ -44,11 +44,11 @@ class ProductDetails : AppCompatActivity() {
         }
         binding.btToDecrease.setOnClickListener{
             if (amount == 3){
-                binding.txAmount.text = "2"
+                binding.txtAmount.text = "2"
                 newPrice -= price
                 amount = 2
             }else if (amount == 2){
-                binding.txAmount.text = "1"
+                binding.txtAmount.text = "1"
                 newPrice -= price
                 amount = 1
             }
@@ -80,9 +80,9 @@ class ProductDetails : AppCompatActivity() {
                 }
             }
             val intent = Intent(this, Payment::class.java)
-            intent.putExtra("name", name)
+            intent.putExtra("Nome", name)
             intent.putExtra("amont", amount)
-            intent.putExtra("total", newPrice)
+            intent.putExtra("Total", newPrice)
             intent.putExtra("Produtos", produtos)
 
             startActivity(intent)

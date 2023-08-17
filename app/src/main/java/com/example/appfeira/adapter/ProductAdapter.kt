@@ -20,11 +20,7 @@ class ProductAdapter(private val context: Context, private val productList: Muta
 
     override fun getItemCount() = productList.size
 
-    override fun onBindViewHolder(holder: ProductAdapter.ProductViewHolder, position: Int) {
-        holder.imgProduct.setBackgroundResource(productList[position].imgProduct)
-        holder.name.text = productList[position].name
-        holder.price.text = productList[position].price
-
+    fun clickOn(holder: ProductAdapter.ProductViewHolder, position: Int){
         holder.btAdd.setOnClickListener{
             val intent = Intent(context, ProductDetails::class.java)
             intent.putExtra("imgProduct", productList[position].imgProduct)
@@ -33,10 +29,16 @@ class ProductAdapter(private val context: Context, private val productList: Muta
             context.startActivity(intent)
         }
     }
+
+    override fun onBindViewHolder(holder: ProductAdapter.ProductViewHolder, position: Int) {
+        holder.imgProduct.setBackgroundResource(productList[position].imgProduct)
+        holder.name.text = productList[position].name
+        holder.price.text = productList[position].price
+    }
     inner class ProductViewHolder(binding: ProductItemBinding): RecyclerView.ViewHolder(binding.root){
         val imgProduct = binding.imgProduct
         val name = binding.txtName
         val price = binding.txtPrice
-        val btAdd = binding.btAdd
+        val btAdd = binding.add
     }
 }
